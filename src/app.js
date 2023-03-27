@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 
 app.get("/api/og", (req, res) => {
 	if (!req.query.url) {
-		res.status(400).json({
+		return res.status(400).json({
 			status: "Bad Request",
 			code: 400,
 			data: { msg: "?url can't be empty" },
@@ -30,14 +30,14 @@ app.get("/api/og", (req, res) => {
 			const title = $('meta[property="og:title"]').attr("content");
 			const description = $('meta[property="og:description"]').attr("content");
 
-			res.status(200).json({
+			return res.status(200).json({
 				status: "OK",
 				code: 200,
 				data: { og: { image, title, description } },
 			});
 		})
 		.catch((e) => {
-			res.status(400).json({
+			return res.status(400).json({
 				status: "Bad Request",
 				code: 400,
 				data: { msg: "Can't parse the HTML from the given URL" },
